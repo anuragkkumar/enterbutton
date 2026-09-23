@@ -1,0 +1,27 @@
+{
+  "name": "remote-enter-button",
+  "version": "1.0.0",
+  "description": "Turn your phone into a wireless Enter key for your laptop. Perfect for vibe coding.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "remote",
+    "enter",
+    "keyboard",
+    "phone",
+    "wireless"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

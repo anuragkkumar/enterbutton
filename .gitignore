@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Portable Node.js runtime (auto-downloaded by start.bat on first run)
+bin/
+
+# Temporary and log files
+*.log
+tunnel-info.json
+tunnel-info.txt
+
+# OS metadata
+.DS_Store
+Thumbs.db

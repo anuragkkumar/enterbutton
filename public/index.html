@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0a12">
+  <meta name="description" content="Remote Laptop Control — Wireless Enter, Writer, and Trackpad for your laptop">
+  <title>Laptop Remote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Animated ambient background -->
+  <div class="bg-gradient"></div>
+  <div class="bg-grid"></div>
+
+  <div class="app-layout">
+    <!-- Top Control Bar -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <span class="brand-title">Laptop<span class="accent-text">Remote</span></span>
+          <span class="brand-subtitle" id="deviceStatusText">Wireless Control</span>
+        </div>
+      </div>
+
+      <div class="top-bar-right">
+        <div class="connection-pill" id="connectionStatus">
+          <span class="status-dot"></span>
+          <span class="status-label">Connecting...</span>
+        </div>
+        <button class="lock-header-btn" id="headerLockBtn" title="Lock Laptop Screen" aria-label="Lock Laptop">
+          <span>🔒</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs (Enter, Writer, Trackpad) -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="vibe" id="tabVibe" role="tab" aria-selected="true">
+        <span class="tab-icon">🔘</span>
+        <span class="tab-label">Enter</span>
+      </button>
+      <button class="tab-btn" data-tab="text" id="tabText" role="tab" aria-selected="false">
+        <span class="tab-icon">💬</span>
+        <span class="tab-label">Writer</span>
+      </button>
+      <button class="tab-btn" data-tab="trackpad" id="tabTrackpad" role="tab" aria-selected="false">
+        <span class="tab-icon">🖱️</span>
+        <span class="tab-label">Trackpad</span>
+      </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="content-area">
+
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <!-- TAB 1: VIBE ENTER (GIANT SATISFYING BUTTON & QUICK ACTIONS)        -->
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <section class="tab-pane active" id="paneVibe">
+        <div class="vibe-container">
+          <p class="vibe-tagline">Vibe Coding Remote — Sit back &amp; tap</p>
+
+          <!-- Main Enter Button -->
+          <div class="enter-btn-wrapper">
+            <button class="enter-btn" id="enterBtn" aria-label="Press Enter">
+              <div class="enter-btn-glow"></div>
+              <div class="enter-btn-content">
+                <svg class="enter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 10 4 15 9 20"></polyline>
+                  <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                </svg>
+                <span class="enter-text">Enter</span>
+              </div>
+              <div class="enter-btn-ripple" id="ripple"></div>
+            </button>
+          </div>
+
+          <!-- Quick Action Buttons (Y + Enter / N + Enter) -->
+          <div class="vibe-quick-actions">
+            <button class="action-btn action-yes" id="yesBtn" aria-label="Press Y then Enter">
+              <span class="action-icon">✓</span>
+              <span class="action-label">Y + Enter</span>
+            </button>
+            <button class="action-btn action-no" id="noBtn" aria-label="Press N then Enter">
+              <span class="action-icon">✕</span>
+              <span class="action-label">N + Enter</span>
+            </button>
+          </div>
+
+          <!-- Lock Screen Button -->
+          <div class="vibe-lock-wrapper">
+            <button class="action-btn action-lock" id="vibeLockBtn" aria-label="Lock laptop screen">
+              <span class="action-icon">🔒</span>
+              <span class="action-label">Lock Laptop Screen</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <!-- TAB 2: WRITER (PHONE KEYBOARD & VOICE DICTATION)                   -->
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <section class="tab-pane" id="paneText">
+        <div class="text-pane-container">
+          <div class="text-pane-header">
+            <h3>Type or Speak from Phone</h3>
+            <p>Use your phone's keyboard or speech microphone to write text to your laptop cursor.</p>
+          </div>
+
+          <div class="text-input-wrapper">
+            <textarea id="quickTextInput" placeholder="Type here or tap microphone on phone keyboard to speak..." rows="4"></textarea>
+          </div>
+
+          <div class="text-actions-row">
+            <button class="btn-primary" id="sendTextBtn">
+              <span>Send to Laptop</span>
+              <span class="btn-arrow">⏎</span>
+            </button>
+            <button class="btn-secondary" id="clearTextBtn">Clear</button>
+          </div>
+
+          <div class="quick-snippets">
+            <span class="snippets-title">Quick Snippets:</span>
+            <div class="snippets-grid">
+              <button class="snippet-btn" data-snippet="git status">git status</button>
+              <button class="snippet-btn" data-snippet="npm start">npm start</button>
+              <button class="snippet-btn" data-snippet="npm run dev">npm run dev</button>
+              <button class="snippet-btn" data-snippet="clear">clear</button>
+              <button class="snippet-btn" data-snippet="cls">cls</button>
+              <button class="snippet-btn" data-snippet="yes">yes</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <!-- TAB 3: MOUSE TRACKPAD                                              -->
+      <!-- ═══════════════════════════════════════════════════════════════════ -->
+      <section class="tab-pane" id="paneTrackpad">
+        <div class="trackpad-container">
+          <!-- Pointer Speed Control Bar -->
+          <div class="speed-control-bar">
+            <span class="speed-label">⚡ Pointer Speed:</span>
+            <div class="speed-presets">
+              <button class="speed-btn" data-speed="1.5">1x</button>
+              <button class="speed-btn" data-speed="2.5">2x</button>
+              <button class="speed-btn active" data-speed="3.5">3x Fast</button>
+              <button class="speed-btn" data-speed="5.0">4x Max</button>
+            </div>
+          </div>
+
+          <div class="trackpad-surface" id="trackpadSurface">
+            <div class="trackpad-hint">
+              <span class="trackpad-hint-icon">👆</span>
+              <span>1 finger: move &bull; tap: click &bull; 2 fingers: right-click / scroll</span>
+            </div>
+          </div>
+
+          <div class="trackpad-buttons">
+            <button class="trackpad-btn" id="mouseLeftBtn">
+              <span>Left Click</span>
+            </button>
+            <button class="trackpad-btn" id="mouseRightBtn">
+              <span>Right Click</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Status Bar -->
+    <footer class="bottom-bar">
+      <div class="stat-item">
+        <span class="stat-num" id="pressCount">0</span>
+        <span class="stat-name">Actions</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="latency">—</span>
+        <span class="stat-name">Latency</span>
+      </div>
+      <div class="haptic-toggle" id="hapticToggle">
+        <span class="haptic-icon">📳</span>
+        <span class="haptic-text">Haptics: ON</span>
+      </div>
+    </footer>
+  </div>
+
+
+
+  <!-- Confirmation Flash Overlay -->
+  <div class="flash-overlay" id="flashOverlay"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
